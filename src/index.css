@@ -1,0 +1,183 @@
+/* fontes próprias, subset latin: sem round-trip no Google Fonts e sem CLS
+   (os arquivos são pré-carregados no index.html) */
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/anton-latin.woff2') format('woff2');
+  /* aproxima a métrica do fallback e evita o salto na troca */
+  size-adjust: 100%;
+  ascent-override: 92%;
+  descent-override: 24%;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/inter-latin-var.woff2') format('woff2');
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-kraft-50 text-ink-900 font-body antialiased;
+  background-image:
+    radial-gradient(ellipse at top left, rgba(200, 64, 29, 0.04), transparent 55%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: #c8401d;
+  color: #f7f1e6;
+}
+
+.font-display {
+  font-family: 'Anton', sans-serif;
+  letter-spacing: 0.01em;
+}
+
+/* máscara de reveal: folga no topo para acentos não serem cortados */
+.reveal-mask {
+  overflow: hidden;
+  display: block;
+  padding-top: 0.1em;
+  margin-top: -0.1em;
+}
+
+.container-page {
+  @apply mx-auto w-full max-w-[1440px] px-6 md:px-12;
+}
+
+.stamp-border {
+  border: 2px solid currentColor;
+  border-radius: 2px;
+}
+
+/* correção de cor leve: unifica fotos de origens e temperaturas diferentes */
+.img-grade {
+  filter: saturate(0.88) contrast(1.05) brightness(0.97);
+}
+
+/* puxa a foto para a temperatura kraft da marca */
+.img-warm {
+  filter: sepia(0.32) saturate(1.4) contrast(1.06) brightness(0.86);
+}
+
+/* papel kraft em CSS puro — dispensa gerar textura em canvas */
+.paper-kraft {
+  background-image:
+    repeating-linear-gradient(
+      92deg,
+      rgba(122, 85, 48, 0.05) 0px,
+      rgba(122, 85, 48, 0.05) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    repeating-linear-gradient(
+      4deg,
+      rgba(255, 255, 255, 0.06) 0px,
+      rgba(255, 255, 255, 0.06) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    radial-gradient(ellipse at 20% 10%, rgba(255, 255, 255, 0.28), transparent 60%),
+    radial-gradient(ellipse at 85% 90%, rgba(90, 60, 25, 0.14), transparent 65%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.07'/%3E%3C/svg%3E");
+}
+
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+@media (pointer: fine) {
+  a,
+  button {
+    cursor: none;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 22s linear infinite;
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  50.1% {
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 16s linear infinite;
+}
+
+/* contorno: a cor do texto vira a cor do traço, o preenchimento fica vazado */
+.text-outline {
+  -webkit-text-stroke: 1.5px currentColor;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-stroke-2 {
+  -webkit-text-stroke: 2px currentColor;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .animate-spin-slow,
+  .hero-scrollcue span span {
+    animation: none !important;
+  }
+}
+
+.mask-fade-r {
+  -webkit-mask-image: linear-gradient(to right, black 70%, transparent 100%);
+  mask-image: linear-gradient(to right, black 70%, transparent 100%);
+}

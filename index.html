@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0d0b09" />
+    <title>Disk Atacado Embalagens — Guarapuava</title>
+    <meta name="description" content="Disk Atacado Embalagens, Guarapuava-PR. Comércio atacadista de embalagens: sacolas, descartáveis, filmes, fitas e delivery. Av. Antonio Losso, 1226, Conradinho. (42) 99833-0224." />
+
+    <!-- fontes próprias: elimina 2 origens externas do caminho crítico -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/anton-latin.woff2" crossorigin />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/inter-latin-var.woff2"
+      crossorigin
+    />
+
+    <!-- foto do hero: começa a baixar antes do JS montar o componente -->
+    <link
+      rel="preload"
+      as="image"
+      href="/img/loja-fachada-1600.webp"
+      imagesrcset="/img/loja-fachada-640.webp 640w, /img/loja-fachada-1024.webp 1024w, /img/loja-fachada-1600.webp 1600w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
